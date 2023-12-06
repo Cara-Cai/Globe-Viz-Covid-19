@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Black+Ops+One&family=Libre+Baskerville&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+#visualization-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height:100%
+}
+
+#globeViz {
+  width: 100%; /* Adjust as needed */
+  height: calc(100% - 50px);
+}
+
+#slider-container {
+  position: absolute;
+  margin: 20px 0;
+  text-align: center;
+  bottom: 0;
+  padding: 10px 0; /* Add some padding */
+}
+
+#dateSlider {
+  width: 100%; /* Adjust as needed */
+  margin-bottom: 10px;
+  -webkit-appearance: none; /* Override default appearance */
+  appearance: none;
+  background: transparent; /* Remove default background */
+}
+
+/* Slider Track */
+#dateSlider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 10px;
+  background: #b2abab; /* Dark track */
+  border-radius: 4px;
+}
+
+#dateSlider::-moz-range-track {
+  width: 100%;
+  height: 12px; /* Increase track height */
+  background: #333; /* Dark track */
+  border-radius: 4px;
+
+}
+
+/* Slider Thumb */
+#dateSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px; /* Size of the thumb */
+  height: 10px;
+  background: rgba(255, 0, 0); /* Red thumb */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 20%; /* Round shape */
+
+}
+
+
+/* Progress Track (for WebKit/Blink browsers only) */
+#dateSlider::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, #e39393 0%, #8B0000 100%); /* Dark red progress track */
+}
+
+
+#dateDisplay {
+  font-size: 60px; /* Increase font size */
+  color: darkred
+  /* bottom：10px; */
+}
