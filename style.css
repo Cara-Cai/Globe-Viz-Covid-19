@@ -170,16 +170,15 @@ td, th {
 
 
 #projectInfo {
-  font-family:arial, sans-serif;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     display: none; /* Initially hidden */
     position: fixed; /* Fixed position relative to the viewport */
-    top: 50%; /* Positioned 50% from the top */
+    top: 40%; /* Positioned 50% from the top */
     left: 50%; /* Positioned 50% from the left */
     transform: translate(-50%, -50%); /* Shifts the element back by its own half width and height */
     background-color: rgba(255, 255, 255, 0.175); /* Background color */
-    color: rgb(220, 220, 220); /* Text color */
+    color: rgb(180, 180, 180); /* Text color */
     padding: 20px; /* Padding inside the div */
-    border: 1px solid #ddd; /* Border for visibility */
     box-shadow: 0px 0px 10px rgba(0,0,0,0.5); /* Optional: Shadow for a pop-up effect */
     width: 100%; /* Width of the div */
     max-width: 700px; /* Maximum width */
@@ -189,6 +188,12 @@ td, th {
     /* margin-bottom:2px; */
     /* inline-size: 1.5px */
     line-height: 30px; /* 4px +12px + 4px */
-    font-size:13px;
+    font-size:15px;
 
+}
+
+#projectInfo a {
+  color: #b5b4b4; /* Hyperlink text color */
+  /* text-decoration: none; */
+  font-weight: bold; /* Makes the text bold */
 }
