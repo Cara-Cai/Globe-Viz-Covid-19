@@ -192,6 +192,16 @@
 
 
       <button id="showTableBtn">Show Table</button>
+      <button id="InfoBtn">Project Info</button>
+      <div id="projectInfo">
+        This project is a 3d Globe visualization of country-wide total cases and total deaths from 2020-01-22 to 2023-03-09.<br />
+        Considering the GPU capacity and performance of computers, some countries are not indicated on the globe.<br />
+        They are indicated in the table. <br />
+        The framework used is xxx.The data source is xxx and xxx.The project assets can be accessed xxx. <br />
+        For clarification, the height of the country polygons are mapped based on the total cases of the countries.<br />
+        This project is contributed to The Covid Impact Porject founded by John Henry Thompson & Shindy Johnson.<br />
+        
+      </div>
 
     </div>
 
@@ -199,9 +209,7 @@
     <script type="module" src="sketch.js"></script>
 
 
-
-
-    <script>
+    <script> // script for the show table button
     document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('unshownData-container').style.display = 'none'; // Hide the table
     document.getElementById('showTableBtn').textContent = 'Show Table'; // Set button text to 'Show Table'
@@ -214,7 +222,7 @@
 
     if (container.style.display === 'none' || container.style.display === '') {
         container.style.display = 'flex'; // Show the table
-        this.textContent = 'Close Table'; // Change button text to 'Close Table'
+        // this.textContent = 'Close Table'; // Change button text to 'Close Table'
 
         if (!overlay) {
             container.insertAdjacentHTML('beforeend', '<div class="modal-overlay"></div>');
@@ -222,18 +230,50 @@
         overlay.style.display = 'block'; // Ensure the overlay is shown
     } else {
         container.style.display = 'none'; // Hide the table
-        this.textContent = 'Show Table'; // Change button text to 'Show Table'
+        // this.textContent = 'Show Table'; // Change button text to 'Show Table'
         if (overlay) {
             overlay.style.display = 'none'; // Hide the overlay
         }
     }
 });
 
-;
+document.addEventListener('click', function(event) {
+    var container = document.getElementById('unshownData-container');
+    var overlay = document.querySelector('.modal-overlay');
+    var btn = document.getElementById('showTableBtn');
+
+    // Close the table if the click is outside the container and not on the button
+    if (!container.contains(event.target) && event.target !== btn && container.style.display === 'flex') {
+        container.style.display = 'none';
+        if (overlay) {
+            overlay.style.display = 'none'; // Hide the overlay
+        }
+    }
+});
+
   </script>
 
 
 
+  <script>//for the show project info
+document.getElementById('projectInfo').style.display = 'none';
 
+document.getElementById('InfoBtn').addEventListener('click', function() {
+    var infoDiv = document.getElementById('projectInfo');
+    // Toggle the display of the projectInfo div
+    infoDiv.style.display = (infoDiv.style.display === 'none' || infoDiv.style.display === '') ? 'block' : 'none';
+});
+
+document.addEventListener('click', function(event) {
+    var infoDiv = document.getElementById('projectInfo');
+    var btn = document.getElementById('InfoBtn');
+    // Close the infoDiv when clicking outside
+    if (!infoDiv.contains(event.target) && !btn.contains(event.target) && infoDiv.style.display === 'block') {
+        infoDiv.style.display = 'none';
+    }
+});
+
+
+  </script>
   </body>
 </html>
