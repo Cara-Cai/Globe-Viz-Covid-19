@@ -83,7 +83,7 @@ html, body {
 #unshownData-container {
   display: none; 
   position: fixed; /* Fixed positioning */
-  top: 45%; /* Center vertically */
+  top: 40%; /* Center vertically */
   left: 50%; /* Center horizontally */
   transform: translate(-50%, -50%); /* Adjust for centering */
   z-index: 2; 
@@ -100,7 +100,7 @@ table {
   /* display:none; */
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 120%;
+  width: 300%;
 }
 
 td, th {
@@ -108,7 +108,7 @@ td, th {
   color:white;
   text-align: left;
   padding: 10px;
-  width: 100px;
+  width: 200px;
   white-space: nowrap; 
 }
 
@@ -127,18 +127,21 @@ td, th {
 #showTableBtn {
   position:absolute;
   padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
+  background-color:inherit;
+  color: darkred;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  /* border-radius: 5px; */
+  font-family: "Bebas Neue", sans-serif;;
+  font-size: 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  /* transition: background-color 0.3s ease; */
   top:50%;
   right:10%;
   
 }
 
 #showTableBtn:hover {
-  background-color: #0056b3;
+  /* background-color: rgb(114, 14, 14);
+  border-radius:30% */
+  color:#fc4d4d;
 }

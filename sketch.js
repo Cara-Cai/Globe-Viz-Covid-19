@@ -61,41 +61,6 @@ const world = Globe()
 // Add the globe to the DOM
 const globeElement = world(document.getElementById('globeViz'));
 
-// Load and render data for a specific date
-// async function loadAndRenderData(date) {
-
-
-//     const globeDataURL = `output6/output_processed_${date}.json`;
-//     const tableDataURL = `processed_/proce_${date}.json`;
-
-//   const url = `output6/output_processed_${date}.json`;
-//     fetchData(url)
-//     // then(data => {
-//   // fetch(`output6/output_processed_${date}.json`)
-//     // .then((res) => res.json())
-//     .then((countries) => {
-
-      
-//       // Define a scale for the altitude that takes the total cases and maps it to a range of altitudes
-//       const altitudeScale = d3.scaleLinear()
-//       // .domain([0, d3.max(countries.features, feat => feat.properties.totalCases)]) // Replace with the correct max totalCases value
-//       .domain([0, 103802702]) 
-//       .range([0.03, 1]) // Min and max altitudes for the polygons
-//       // .clamp(true);
-
-//       world
-//         .polygonsData(countries.features.filter((d) => d.properties.ISO_A2 !== 'AQ'))
-//         // .polygonAltitude(altitudeScale(d.properties.totalCases))
-//         .onPolygonHover(hoverD => world
-//           .polygonAltitude(d => d === hoverD ? altitudeScale(d.properties.totalCases) +0.03 : altitudeScale(d.properties.totalCases)) // Slightly increase altitude when hovered
-//           .polygonCapColor(d => d === hoverD ? 'rgba(255, 0, 0,0.8)' : "rgba(255, 0, 0, 0.32)")
-//         )
-      
-//         updateTable(countries.features);
-  
-//     });
-// }
-
 
 async function loadAndRenderData(date) {
   const globeDataURL = `output6/output_processed_${date}.json`;
