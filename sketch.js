@@ -33,7 +33,6 @@ const getVal = (feat, date) => {
 };
 
 
-
 // Initialize the globe
 const world = Globe()
 // .cameraDistance(300) 

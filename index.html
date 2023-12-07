@@ -19,13 +19,221 @@
 
     <div id="visualization-container">
       <div id="globeViz"></div>
+
+      <div id="unshownData-container">
+        <div class="modal-overlay"></div>
+        <table class="table-col">
+          <tr>
+            <th>    </th>
+            <th>Total Cases</th>
+            <th>Total Deaths</th>
+          </tr>
+          <tr>
+            <td>Andorra</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Antigua and Barbuda</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Bahrain</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Barbados</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Cabo Verde</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Comoros</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Dominica</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Grenada</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Holy See</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Kiribati</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Liechtenstein</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Maldives</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Malta</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+
+          </table>
+          <table class="table-col">
+            <tr>
+              <th>    </th>
+              <th>Total Cases</th>
+              <th>Total Deaths</th>
+            </tr>
+            <td>Marshall Islands</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Mauritius</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Micronesia</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Monaco</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Nauru</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Palau</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Saint Kitts and Nevis</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Saint Lucia</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Saint Vincent and the Grenadines</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Samoa</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>San Marino</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Sao Tome and Principe</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Seychelles</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Singapore</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Tonga</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Tuvalu</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+       </table>
+      </div>
+
       <div id="slider-container">
         <span id="dateDisplay">2020-01-22</span>
         <input class="range" type="range" id="dateSlider" min="0" max="1142" value="0">
       </div>
 
-      <!-- <div id="globeViz"></div> -->
+
+
+      <button id="showTableBtn">Show Table</button>
+
     </div>
+
+
     <script src="sketch.js"></script>
+
+
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('unshownData-container').style.display = 'none'; // Hide the table
+    document.getElementById('showTableBtn').textContent = 'Show Table'; // Set button text to 'Show Table'
+  });
+
+
+  document.getElementById('showTableBtn').addEventListener('click', function() {
+    var container = document.getElementById('unshownData-container');
+    var overlay = document.querySelector('.modal-overlay');
+
+    if (container.style.display === 'none' || container.style.display === '') {
+        container.style.display = 'flex'; // Show the table
+        this.textContent = 'Close Table'; // Change button text to 'Close Table'
+
+        if (!overlay) {
+            container.insertAdjacentHTML('beforeend', '<div class="modal-overlay"></div>');
+        }
+        overlay.style.display = 'block'; // Ensure the overlay is shown
+    } else {
+        container.style.display = 'none'; // Hide the table
+        this.textContent = 'Show Table'; // Change button text to 'Show Table'
+        if (overlay) {
+            overlay.style.display = 'none'; // Hide the overlay
+        }
+    }
+});
+
+;
+  </script>
+
+
+
+
   </body>
 </html>
