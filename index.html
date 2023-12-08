@@ -223,7 +223,7 @@
 
     if (container.style.display === 'none' || container.style.display === '') {
         container.style.display = 'flex'; // Show the table
-        // this.textContent = 'Close Table'; // Change button text to 'Close Table'
+        this.textContent = 'Close Table'; // Change button text to 'Close Table'
 
         if (!overlay) {
             container.insertAdjacentHTML('beforeend', '<div class="modal-overlay"></div>');
@@ -231,26 +231,26 @@
         overlay.style.display = 'block'; // Ensure the overlay is shown
     } else {
         container.style.display = 'none'; // Hide the table
-        // this.textContent = 'Show Table'; // Change button text to 'Show Table'
+        this.textContent = 'Show Table'; // Change button text to 'Show Table'
         if (overlay) {
             overlay.style.display = 'none'; // Hide the overlay
         }
     }
 });
 
-document.addEventListener('click', function(event) {
-    var container = document.getElementById('unshownData-container');
-    var overlay = document.querySelector('.modal-overlay');
-    var btn = document.getElementById('showTableBtn');
+// document.addEventListener('click', function(event) {
+//     var container = document.getElementById('unshownData-container');
+//     var overlay = document.querySelector('.modal-overlay');
+//     var btn = document.getElementById('showTableBtn');
 
-    // Close the table if the click is outside the container and not on the button
-    if (!container.contains(event.target) && event.target !== btn && container.style.display === 'flex') {
-        container.style.display = 'none';
-        if (overlay) {
-            overlay.style.display = 'none'; // Hide the overlay
-        }
-    }
-});
+//     // Close the table if the click is outside the container and not on the button
+//     if (!container.contains(event.target) && event.target !== btn && container.style.display === 'flex') {
+//         container.style.display = 'none';
+//         if (overlay) {
+//             overlay.style.display = 'none'; // Hide the overlay
+//         }
+//     }
+// });
 
   </script>
 
