@@ -70,13 +70,20 @@ const world = Globe()
 const globeElement = world(document.getElementById('globeViz'));
 
 
+//filters////////////////////////////////////////////////////////////////////// - date is not passed in
+document.getElementById('continent').addEventListener('change', function(e) {
+  const selectedRegion = e.target.value;
+  const currentDate = dateDisplay.textContent; // Get the current date from the date display
+  highlightRegion(selectedRegion, currentDate);
+});
+
 
 
 async function loadAndRenderData(date) {
   const globeDataURL = `output6/output_processed_${date}.json`;
   const tableDataURL = `processed_covid_daily_data/processed_${date}.json`;
 
-  try {
+  // try {
       // Fetch globe data
       const globeData = await fetchData(globeDataURL);
       if (globeData) {
@@ -98,42 +105,33 @@ async function loadAndRenderData(date) {
           updateTable(tableData);
       }
 
-  } catch (error) {
-      console.error('Error in loadAndRenderData:', error);
-  }
+  // } catch (error) {
+  //     console.error('Error in loadAndRenderData:', error);
+  // }
 }
 
 
-//filters////////////////////////////////////////////////////////////////////// - date is not passed in
-document.getElementById('continent').addEventListener('change', function(e) {
-  const selectedRegion = e.target.value;
-  console.log(selectedRegion);
-  highlightRegion(selectedRegion);
-});
+// //filters////////////////////////////////////////////////////////////////////// - date is not passed in
 
-async function highlightRegion(selectedRegion) {
-
-const globeDataURL = `output6/output_processed_${date}.json`;
-const globeData = await fetchData(globeDataURL);
+async function highlightRegion(selectedRegion, date) {
+  const globeDataURL = `output6/output_processed_${date}.json`;
+  const globeData = await fetchData(globeDataURL);
 
   if (!globeData) {
-      console.error('Globe data not loaded');
-      return;
+    console.error('Globe data not loaded');
+    return;
   }
 
   const filteredData = globeData.features.filter(feature => {
-      return feature.properties.CONTINENT === selectedRegion || selectedRegion === "All Regions";
+    return feature.properties.CONTINENT === selectedRegion || selectedRegion === "All Regions";
   });
-
 
   console.log(`Selected Region: ${selectedRegion}, Filtered Features: ${filteredData.length}`);
 
   // Update the globe visualization
   world.polygonsData(filteredData)
-      .polygonCapColor(d => selectedRegion === 'All Regions' || d.properties.CONTINENT === selectedRegion ? 'rgba(255, 0, 0, 0.8)' : 'rgba(255, 0, 0, 0.32)');
-
+    .polygonCapColor(d => selectedRegion === 'All Regions' || d.properties.CONTINENT === selectedRegion ? 'rgba(255, 0, 0, 0.8)' : 'rgba(255, 0, 0, 0.32)');
 }
-
 
 // Initial data load and rendering
 const initialDate = '2020-01-22'; 
