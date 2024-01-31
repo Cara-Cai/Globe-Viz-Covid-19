@@ -17,7 +17,7 @@ html, body {
 }
 
 #globeViz {
-  width: 100%; /* Adjust as needed */
+  width: 100%; 
   height: calc(100% - 1000px);
 }
 
@@ -197,3 +197,57 @@ td, th {
   /* text-decoration: none; */
   font-weight: bold; /* Makes the text bold */
 }
+
+
+#filters{
+  /* color:white; */
+  position:absolute;
+  padding: 10px 20px;
+  background-color:inherit;
+  color: white;
+  border: none;
+  /* border-radius: 5px; */
+  font-family: "Bebas Neue", sans-serif;;
+  font-size: 20px;
+  cursor: pointer;
+  /* transition: background-color 0.3s ease; */
+  top:30%;
+  left:6%;
+  
+}
+
+#filters > ul {
+  /* position:absolute; */
+  /* padding: 90px; */
+  display:flex;
+  margin-bottom:50px;
+  background-color:inherit;
+  color: darkred;
+  border: none;
+  /* border-radius: 5px; */
+  font-family: "Bebas Neue", sans-serif;;
+  font-size: 20px;
+  cursor: pointer;
+  /* transition: background-color 0.3s ease; */
+  top:30%;
+  left:8%;
+  
+  }
+
+ 
+
+  #selectRegionContainer{
+    position:absolute;
+    background-color:inherit;
+    color: darkred;
+    border: none;
+    /* border-radius: 5px; */
+    font-family: "Bebas Neue", sans-serif;;
+    font-size: 20px;
+    cursor: pointer;
+    /* transition: background-color 0.3s ease; */
+    top:22%;
+    left:8%;
+    
+
+  }

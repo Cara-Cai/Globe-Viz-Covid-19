@@ -3,6 +3,8 @@ import { fetchData } from './dataFetcher.js';
 import { updateTable } from './tableHandler.js';
 
 
+
+//slider and Date////////////////////////////////////////////////////////////////////////////////////////////////
 const startDate = new Date("2020-01-22");
 const endDate = new Date("2023-03-09");
 
@@ -17,7 +19,6 @@ function sliderValueToDate(value) {
   return newDate.toISOString().split('T')[0];
 }
 
-//slider
 document.getElementById('dateSlider').max = dateToSliderValue(endDate);
 
 const dateslider = document.getElementById('dateSlider');
@@ -31,17 +32,15 @@ dateslider.addEventListener('input', (e) => {
   loadAndRenderData(date);
 });
 
-const getVal = (feat, date) => {
-  return feat.properties.totalCases && feat.properties.totalCases[date] ? feat.properties.totalCases[date] : 0;
-};
+// const getVal = (feat, date) => {
+//   return feat.properties.totalCases && feat.properties.totalCases[date] ? feat.properties.totalCases[date] : 0;
+// };
 
 
-// Initialize the globe
+// Initialize the globe///////////////////////////////////////////////////////////////////////////////////
 const world = Globe()
-// .cameraDistance(300) 
-// .pointOfView({ lat: 100, lng: 0, altitude: 1000}, 0)
+
   .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-  // .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
   .lineHoverPrecision(0)
   .polygonAltitude(0.03)
   .polygonSideColor(() => 'rgba(150, 100, 100, 0.06)')
@@ -50,16 +49,27 @@ const world = Globe()
   .polygonsTransitionDuration(300)
   .polygonLabel(({ properties: d }) => {
       
+    const dailyCases = d.dailyCases || 0; 
+    const dailyDeaths = d.dailyDeaths || 0;
     const totalCases = d.totalCases || 0; 
     const totalDeaths = d.totalDeaths || 0;
 
     return` 
       <b>${d.ADMIN} (${d.ISO_A2}):</b> <br />
+      Daily Cases: <i>${dailyCases}</i><br/>
+      Daily Deaths: <i>${dailyDeaths}</i><br/>
       Total Cases: <i>${totalCases}</i><br/>
       Total Deaths: <i>${totalDeaths}</i>
     `});
-// Add the globe to the DOM
+
+
+
+
+
+// Add the globe to the DOM//////////////////////////////////////////////////////////////////////
 const globeElement = world(document.getElementById('globeViz'));
+
+
 
 
 async function loadAndRenderData(date) {
@@ -92,6 +102,38 @@ async function loadAndRenderData(date) {
       console.error('Error in loadAndRenderData:', error);
   }
 }
+
+
+//filters////////////////////////////////////////////////////////////////////// - date is not passed in
+document.getElementById('continent').addEventListener('change', function(e) {
+  const selectedRegion = e.target.value;
+  console.log(selectedRegion);
+  highlightRegion(selectedRegion);
+});
+
+async function highlightRegion(selectedRegion) {
+
+const globeDataURL = `output6/output_processed_${date}.json`;
+const globeData = await fetchData(globeDataURL);
+
+  if (!globeData) {
+      console.error('Globe data not loaded');
+      return;
+  }
+
+  const filteredData = globeData.features.filter(feature => {
+      return feature.properties.CONTINENT === selectedRegion || selectedRegion === "All Regions";
+  });
+
+
+  console.log(`Selected Region: ${selectedRegion}, Filtered Features: ${filteredData.length}`);
+
+  // Update the globe visualization
+  world.polygonsData(filteredData)
+      .polygonCapColor(d => selectedRegion === 'All Regions' || d.properties.CONTINENT === selectedRegion ? 'rgba(255, 0, 0, 0.8)' : 'rgba(255, 0, 0, 0.32)');
+
+}
+
 
 // Initial data load and rendering
 const initialDate = '2020-01-22'; 

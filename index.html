@@ -20,6 +20,7 @@
     <div id="visualization-container">
       <div id="globeViz"></div>
 
+
       <div id="unshownData-container">
         <div class="modal-overlay"></div>
         <table class="table-col">
@@ -189,8 +190,32 @@
         <input class="range" type="range" id="dateSlider" min="0" max="1142" value="0">
       </div>
 
+      <div id="selectRegionContainer">
+
+      <label for="continent">Choose a Region:</label>
+  <select name="continent" id="continent">
+  <option value="Africa">Africa</option>
+  <option value="Antarctica">Antarctica</option>
+  <option value="Asia">Asia</option>
+  <option value="Europe">Europe</option>
+  <option value="North-america">North America</option>
+  <option value="Oceania">Oceania</option>
+  <option value="South America">South America</option>
+  <option value="All Regions">All Regions</option>
+</select>
+
+</div>
+
+      <div id = "filters">
+
+        <ul>Daily Cases</ul>
+        <ul>Daily Deaths</ul>
+        <ul>Total Cases</ul>
+        <ul>Total Deaths</ul>
 
 
+
+    </div>
       <button id="showTableBtn">Show Table</button>
       <button id="InfoBtn">Project Info</button>
       <div id="projectInfo">
