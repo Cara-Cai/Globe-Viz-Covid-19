@@ -2,7 +2,8 @@
 import { fetchData } from './dataFetcher.js';
 import { updateTable } from './tableHandler.js';
 
-
+// Store the current region selection
+let currentRegion = 'All Regions'; // Default to 'All Regions'
 
 //slider and Date////////////////////////////////////////////////////////////////////////////////////////////////
 const startDate = new Date("2020-01-22");
@@ -28,8 +29,10 @@ dateDisplay.textContent = '2020-01-22';
 
 dateslider.addEventListener('input', (e) => {
   const date = sliderValueToDate(e.target.value);
-  dateDisplay.textContent = date; 
-  loadAndRenderData(date);
+  dateDisplay.textContent = date;
+  loadAndRenderData(date).then(() => {
+    highlightRegion(currentRegion, date); // Ensure region filter is applied after data load
+  });
 });
 
 // const getVal = (feat, date) => {
@@ -72,9 +75,9 @@ const globeElement = world(document.getElementById('globeViz'));
 
 //filters////////////////////////////////////////////////////////////////////// - date is not passed in
 document.getElementById('continent').addEventListener('change', function(e) {
-  const selectedRegion = e.target.value;
+  currentRegion = e.target.value; // Update the current region
   const currentDate = dateDisplay.textContent; // Get the current date from the date display
-  highlightRegion(selectedRegion, currentDate);
+  highlightRegion(currentRegion, currentDate); // Call with the updated region
 });
 
 
