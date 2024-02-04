@@ -2,8 +2,7 @@
 import { fetchData } from './dataFetcher.js';
 import { updateTable } from './tableHandler.js';
 
-// Store the current region selection
-let currentRegion = 'All Regions'; // Default to 'All Regions'
+
 
 //slider and Date////////////////////////////////////////////////////////////////////////////////////////////////
 const startDate = new Date("2020-01-22");
@@ -29,10 +28,8 @@ dateDisplay.textContent = '2020-01-22';
 
 dateslider.addEventListener('input', (e) => {
   const date = sliderValueToDate(e.target.value);
-  dateDisplay.textContent = date;
-  loadAndRenderData(date).then(() => {
-    highlightRegion(currentRegion, date); // Ensure region filter is applied after data load
-  });
+  dateDisplay.textContent = date; 
+  loadAndRenderData(date);
 });
 
 // const getVal = (feat, date) => {
@@ -75,9 +72,9 @@ const globeElement = world(document.getElementById('globeViz'));
 
 //filters////////////////////////////////////////////////////////////////////// - date is not passed in
 document.getElementById('continent').addEventListener('change', function(e) {
-  currentRegion = e.target.value; // Update the current region
+  const selectedRegion = e.target.value;
   const currentDate = dateDisplay.textContent; // Get the current date from the date display
-  highlightRegion(currentRegion, currentDate); // Call with the updated region
+  highlightRegion(selectedRegion, currentDate);
 });
 
 
@@ -133,7 +130,7 @@ async function highlightRegion(selectedRegion, date) {
 
   // Update the globe visualization
   world.polygonsData(filteredData)
-    .polygonCapColor(d => selectedRegion === 'All Regions' || d.properties.CONTINENT === selectedRegion ? 'rgba(255, 0, 0, 0.8)' : 'rgba(255, 0, 0, 0.32)');
+    .polygonCapColor(d => selectedRegion === 'All Regions' || d.properties.CONTINENT === selectedRegion ? 'rgba(255, 0, 0, 0.32)' : 'rgba(255, 0, 0, 0.8)');
 }
 
 // Initial data load and rendering
