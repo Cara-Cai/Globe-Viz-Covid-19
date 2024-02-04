@@ -29,6 +29,7 @@ dateDisplay.textContent = '2020-01-22';
 dateslider.addEventListener('input', (e) => {
   const date = sliderValueToDate(e.target.value);
   dateDisplay.textContent = date; 
+  document.getElementById('continent').value = "All Regions";
   loadAndRenderData(date);
 });
 
