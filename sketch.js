@@ -42,14 +42,19 @@ dateslider.addEventListener('input', (e) => {
 const world = Globe()
 
   .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-  .lineHoverPrecision(0)
+  .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+  // .backgroundImageUrl('//unpkg.com/three-globe/example/img/earth-day.png')
+  .atmosphereColor(() => 'rgba(0,0,0,0.9)')
+  .lineHoverPrecision(2)
   .polygonAltitude(0.03)
-  .polygonSideColor(() => 'rgba(150, 100, 100, 0.06)')
-  .polygonStrokeColor(() => 'rgba(200, 0, 0, 0.3)')
+  // .polygonSideColor(() => 'rgba(250, 100, 100, 0.06)')
+  .polygonSideColor(() => 'rgba(229, 56, 59, 0.06)')
+  // .polygonStrokeColor(() => 'rgba(200, 0, 0, 0.3)')
+  .polygonStrokeColor(() => 'rgba(255,0,0,0.3)')
   .polygonCapColor(() => "rgba(255, 0, 0, 0.32)")
   .polygonsTransitionDuration(300)
   .polygonLabel(({ properties: d }) => {
-      
+
     const dailyCases = d.dailyCases || 0; 
     const dailyDeaths = d.dailyDeaths || 0;
     const totalCases = d.totalCases || 0; 
@@ -96,7 +101,7 @@ async function loadAndRenderData(date) {
           world.polygonsData(globeData.features.filter(d => d.properties.ISO_A2 !== 'AQ'))
               .onPolygonHover(hoverD => world
                   .polygonAltitude(d => d === hoverD ? altitudeScale(d.properties.totalCases) + 0.03 : altitudeScale(d.properties.totalCases))
-                  .polygonCapColor(d => d === hoverD ? 'rgba(255, 0, 0, 0.8)' : "rgba(255, 0, 0, 0.32)"));
+                  .polygonCapColor(d => d === hoverD ? 'rgba(255, 0, 0, 0.9)' : "rgba(255, 0, 0, 0.32)"));
       }
 
       // Fetch table data
@@ -131,7 +136,7 @@ async function highlightRegion(selectedRegion, date) {
 
   // Update the globe visualization
   world.polygonsData(filteredData)
-    .polygonCapColor(d => selectedRegion === 'All Regions' || d.properties.CONTINENT === selectedRegion ? 'rgba(255, 0, 0, 0.32)' : 'rgba(255, 0, 0, 0.8)');
+    .polygonCapColor(d => selectedRegion === 'All Regions' || d.properties.CONTINENT === selectedRegion ? 'rgba(255, 0, 0, 0.32)' : 'rgba(229, 56, 59, 0.9)');
 }
 
 // Initial data load and rendering
