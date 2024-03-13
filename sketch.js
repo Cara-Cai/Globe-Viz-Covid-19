@@ -119,6 +119,26 @@ async function loadAndRenderData(date) {
 
 // //filters////////////////////////////////////////////////////////////////////// - date is not passed in
 
+// async function highlightRegion(selectedRegion, date) {
+//   const globeDataURL = `output6/output_processed_${date}.json`;
+//   const globeData = await fetchData(globeDataURL);
+
+//   if (!globeData) {
+//     console.error('Globe data not loaded');
+//     return;
+//   }
+
+//   const filteredData = globeData.features.filter(feature => {
+//     return feature.properties.CONTINENT === selectedRegion || selectedRegion === "All Regions";
+//   });
+
+//   console.log(`Selected Region: ${selectedRegion}, Filtered Features: ${filteredData.length}`);
+
+//   // Update the globe visualization
+//   world.polygonsData(filteredData)
+//     .polygonCapColor(d => selectedRegion === 'All Regions' || d.properties.CONTINENT === selectedRegion ? 'rgba(255, 0, 0, 0.32)' : 'rgba(229, 56, 59, 0.9)');
+// }
+
 async function highlightRegion(selectedRegion, date) {
   const globeDataURL = `output6/output_processed_${date}.json`;
   const globeData = await fetchData(globeDataURL);
@@ -128,16 +148,58 @@ async function highlightRegion(selectedRegion, date) {
     return;
   }
 
-  const filteredData = globeData.features.filter(feature => {
-    return feature.properties.CONTINENT === selectedRegion || selectedRegion === "All Regions";
+  // Define altitude scaling based on total cases
+  const altitudeScale = d3.scaleLinear()
+      .domain([0, d3.max(globeData.features, d => d.properties.totalCases)])
+      .range([0.03, 0.12]); // Adjust this range based on your visualization needs
+
+  world.polygonsData(globeData.features)
+      .polygonCapColor(d => {
+        if (selectedRegion === "All Regions") {
+          return "rgba(255, 0, 0, 0.32)"; // Default color for all
+        } else if (d.properties.CONTINENT === selectedRegion) {
+          return "rgba(255, 0, 0, 0.32)"; // Highlight selected region
+        } else {
+          return "rgba(100, 100, 100, 0.5)"; // Dim non-selected regions
+        }
+      })
+      .onPolygonHover(hoverD => {
+        // Apply a dynamic altitude based on the total cases, as previously defined
+        const defaultAltitude = d => altitudeScale(d.properties.totalCases);
+        
+        if (hoverD) {
+          // Highlight only the hovered polygon if it's within the selected region
+          world.polygonAltitude(d => d === hoverD ? 0.12 : defaultAltitude(d))
+              .polygonCapColor(d => {
+                if (selectedRegion === "All Regions") {
+                  // When "All Regions" is selected, highlight the hovered region with a distinct color
+                  return d === hoverD ? "rgba(255, 0, 0, 0.9)" : "rgba(255, 0, 0, 0.32)";
+                } else if (d === hoverD && d.properties.CONTINENT === selectedRegion) {
+                  return "rgba(255, 0, 0, 0.9)"; // Highlight color for hovered polygon in selected region
+                } else if (d.properties.CONTINENT === selectedRegion) {
+                  return "rgba(255, 0, 0, 0.32)"; // Selected region color
+                } else {
+                  return "rgba(100, 100, 100, 0.5)"; // Non-selected regions color
+                }
+              });
+        } else {
+          // Reset all polygons to their default appearance when no polygon is hovered
+          world.polygonAltitude(defaultAltitude)
+              .polygonCapColor(d => d.properties.CONTINENT === selectedRegion || selectedRegion === "All Regions" ?
+                "rgba(255, 0, 0, 0.32)" : "rgba(100, 100, 100, 0.5)");
+        }
+      });
+      
+
+  // Ensure non-selected regions remain grey, even when hovering over selected regions
+  world.polygonsData().forEach(d => {
+    if (d.properties.CONTINENT !== selectedRegion && selectedRegion !== "All Regions") {
+      d.polygonCapColor = "rgba(100, 100, 100, 0.5)";
+    }
   });
-
-  console.log(`Selected Region: ${selectedRegion}, Filtered Features: ${filteredData.length}`);
-
-  // Update the globe visualization
-  world.polygonsData(filteredData)
-    .polygonCapColor(d => selectedRegion === 'All Regions' || d.properties.CONTINENT === selectedRegion ? 'rgba(255, 0, 0, 0.32)' : 'rgba(229, 56, 59, 0.9)');
 }
+
+
 
 // Initial data load and rendering
 const initialDate = '2020-01-22'; 
