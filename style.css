@@ -27,6 +27,7 @@ html, body {
   text-align: center;
   bottom: 5%;
   padding: 10px 0; /* Add some padding */
+  left:auto;
 }
 
 #dateSlider {
@@ -124,50 +125,49 @@ td, th {
   z-index: 1; /* Ensure it's below the table but above other content */
 }
 
-#showTableBtn {
-  position:absolute;
-  padding: 10px 20px;
-  background-color:inherit;
+#navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the items */
+  width: 100%; /* Ensure full width */
+  position: fixed; /* Or 'absolute', depending on your requirement */
+  top: 5%; /* Position at the top */
+  left: 0; /* Align left */
+  z-index: 1000; /* Ensure it stays on top of other content */
+  padding: 0 10px; /* Add some padding on both sides */
+}
+
+
+#selectRegionContainer {
+  background-color: inherit;
   color: darkred;
   border: none;
-  /* border-radius: 5px; */
-  font-family: "Bebas Neue", sans-serif;;
+  font-family: "Bebas Neue", sans-serif;
   font-size: 20px;
   cursor: pointer;
-  /* transition: background-color 0.3s ease; */
-  top:50%;
-  right:10%;
-  
+  flex-grow: 1; /* Allow it to grow */
+  text-align: center; /* Center the text inside the container */
 }
 
-#showTableBtn:hover {
-  /* background-color: rgb(114, 14, 14);
-  border-radius:30% */
-  color:#fc4d4d;
+#leftSpacer, #buttonsContainer {
+  display: flex;
+  justify-content: center;
+  flex: 1; /* This makes the spacer and buttons container flexible in taking up equal space */
 }
 
-#InfoBtn {
-  position:absolute;
-  padding: 10px 20px;
-  background-color:inherit;
-  color: darkred;
+#showTableBtn, #InfoBtn {
+  margin-right:30px;
+  background-color: inherit;
+  color: rgb(175, 0, 0);
   border: none;
-  /* border-radius: 5px; */
-  font-family: "Bebas Neue", sans-serif;;
+  font-family: "Bebas Neue", sans-serif;
   font-size: 20px;
   cursor: pointer;
-  /* transition: background-color 0.3s ease; */
-  top:54%;
-  right:10%;
-  
 }
 
-#InfoBtn:hover {
-  /* background-color: rgb(114, 14, 14);
-  border-radius:30% */
-  color:#fc4d4d;
+#showTableBtn:hover, #InfoBtn:hover {
+  color: #fc4d4d;
 }
-
 
 #projectInfo {
   font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -199,55 +199,6 @@ td, th {
 }
 
 
-#filters{
-  /* color:white; */
-  position:absolute;
-  padding: 10px 20px;
-  background-color:inherit;
-  color: white;
-  border: none;
-  /* border-radius: 5px; */
-  font-family: "Bebas Neue", sans-serif;;
-  font-size: 20px;
-  cursor: pointer;
-  /* transition: background-color 0.3s ease; */
-  top:30%;
-  left:6%;
-  
-}
 
-#filters > ul {
-  /* position:absolute; */
-  /* padding: 90px; */
-  display:flex;
-  margin-bottom:50px;
-  background-color:inherit;
-  color: darkred;
-  border: none;
-  /* border-radius: 5px; */
-  font-family: "Bebas Neue", sans-serif;;
-  font-size: 20px;
-  cursor: pointer;
-  /* transition: background-color 0.3s ease; */
-  top:30%;
-  left:8%;
-  
-  }
 
  
-
-  #selectRegionContainer{
-    position:absolute;
-    background-color:inherit;
-    color: darkred;
-    border: none;
-    /* border-radius: 5px; */
-    font-family: "Bebas Neue", sans-serif;;
-    font-size: 20px;
-    cursor: pointer;
-    /* transition: background-color 0.3s ease; */
-    top:22%;
-    left:8%;
-    
-
-  }
