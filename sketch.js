@@ -26,11 +26,17 @@ const dateDisplay = document.getElementById('dateDisplay');
 
 dateDisplay.textContent = '2020-01-22';
 
-dateslider.addEventListener('input', (e) => {
+dateslider.addEventListener('input', async(e) => {
   const date = sliderValueToDate(e.target.value);
   dateDisplay.textContent = date; 
-  document.getElementById('continent').value = "All Regions";
-  loadAndRenderData(date);
+  // Keep the currently selected region from the dropdown
+  const selectedRegion = document.getElementById('continent').value;
+  
+  // Load the data for the new date
+  await loadAndRenderData(date);
+  
+  // Re-apply highlighting based on the current region selection
+  highlightRegion(selectedRegion, date);
 });
 
 // const getVal = (feat, date) => {
@@ -117,28 +123,6 @@ async function loadAndRenderData(date) {
 }
 
 
-// //filters////////////////////////////////////////////////////////////////////// - date is not passed in
-
-// async function highlightRegion(selectedRegion, date) {
-//   const globeDataURL = `output6/output_processed_${date}.json`;
-//   const globeData = await fetchData(globeDataURL);
-
-//   if (!globeData) {
-//     console.error('Globe data not loaded');
-//     return;
-//   }
-
-//   const filteredData = globeData.features.filter(feature => {
-//     return feature.properties.CONTINENT === selectedRegion || selectedRegion === "All Regions";
-//   });
-
-//   console.log(`Selected Region: ${selectedRegion}, Filtered Features: ${filteredData.length}`);
-
-//   // Update the globe visualization
-//   world.polygonsData(filteredData)
-//     .polygonCapColor(d => selectedRegion === 'All Regions' || d.properties.CONTINENT === selectedRegion ? 'rgba(255, 0, 0, 0.32)' : 'rgba(229, 56, 59, 0.9)');
-// }
-
 async function highlightRegion(selectedRegion, date) {
   const globeDataURL = `output6/output_processed_${date}.json`;
   const globeData = await fetchData(globeDataURL);
@@ -155,10 +139,10 @@ async function highlightRegion(selectedRegion, date) {
 
   world.polygonsData(globeData.features)
       .polygonCapColor(d => {
-        if (selectedRegion === "All Regions") {
+        if (selectedRegion === "All Regions" || d.properties.CONTINENT === selectedRegion) {
           return "rgba(255, 0, 0, 0.32)"; // Default color for all
-        } else if (d.properties.CONTINENT === selectedRegion) {
-          return "rgba(255, 0, 0, 0.32)"; // Highlight selected region
+        // } else if (d.properties.CONTINENT === selectedRegion) {
+        //   return "rgba(255, 0, 0, 0.32)"; // Highlight selected region
         } else {
           return "rgba(100, 100, 100, 0.5)"; // Dim non-selected regions
         }
